@@ -1,33 +1,36 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int binsearch(int yarr[], int size, int element)
-{
-    int mid = size / 2;
-    int left = mid;
-    int right = size - left;
-    
-    if(element == yarr[mid])
-    {
-        printf("%d", yarr[mid]);
+int binarySearch(int arr[], int low, int high, int key) {
+    if (low > high) {
+        return -1;
     }
     
-    if(element != yarr[right])
-    {
-        for(int i = 0; i < left; i++)
-        {
-            if(element == yarr[i])
-            {
-                printf("%d", yarr[i]);
-            }
-        }
+    int mid = (low + high) / 2;
+    
+    if (arr[mid] == key) {
+        return mid;
     }
+    
+    if (arr[mid] > key) {
+        return binarySearch(arr, low, mid - 1, key);
+    }
+    
+    return binarySearch(arr, mid + 1, high, key);
 }
 
-int main(int argc, char *argv[])
-{
-    int yarr[] = {3, 9, 4, 8, 7, 6, 1, 2, 0, 10};
-    int size = sizeof(yarr) / sizeof(yarr[0]);
-    int element = atoi(argv[1]);
+int main(int argc, char *argv[]) {
+    int arr[] = {3, 9, 4, 8, 7, 6, 1, 2, 0, 10};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int key = atoi(argv[1]);
     
-    binsearch(yarr, size, element);
+    int result = binarySearch(arr, 0, size - 1, key);
+    
+    if (result == -1) {
+        printf("Not Found\n");
+    } else {
+        printf("Found\n");
+    }
+    
+    return 0;
 }
