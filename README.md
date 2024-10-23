@@ -1,74 +1,54 @@
-// Implementation of Binary Search Tree
-#include <stdio.h>
-#include <stdlib.h>
+# Binary Search Tree and Linked Lists in C
 
-struct BST{
-    int data;
-    struct BST* left;
-    struct BST* right;
-};
+## Introduction
 
-struct BST *CreateNode(){
-    struct BST* new =(struct BST*)malloc(sizeof(struct BST));
-    new->left = NULL;
-    new->right = NULL;
-    return new;
-}
+This repository contains implementations of a binary search tree (BST), doubly-linked list and a few common sorting algorithms such as insertion sort and selection sort. This repository will enable you to learn the fundamental concepts of data structures and sorting algorithms in C programming language.
 
-void Insert(struct BST** RootPtr, int value){
-    struct BST* temp = *RootPtr;
-    if(temp == NULL){
-        /*When list is empty*/
-        struct BST* NewNode = CreateNode();
-        NewNode->data = value;
-        *RootPtr = NewNode;
-    }
-    else if(value <= temp->data){
-        /*If user value is less then current node value insert in left of the node...*/
-        struct BST* NewNode = CreateNode();
-        NewNode->data = value;
-        temp->left = NewNode;
-    }
-    else{
-        /*If user value is greater then current node value insert at right of the node*/
-        struct BST* NewNode = CreateNode();
-        NewNode->data = value;
-        temp->right = NewNode;
-    }
-}
+## Prerequisites
 
-int Search(struct BST* RootPtr, int item){
-    /*Implemented search using recursion*/
-    if(RootPtr == NULL){
-        return 0;/*Returns 0 if list is empty*/
-    }
-    else if(item == RootPtr->data){
-        return 1;/*Returns 1 when element found*/
-    }
-    else if(item < RootPtr->data){
-        Search(RootPtr->left, item);/*Otherwise search in left side of binary tree if searching value is less then the current node value*/
-    }
-    else{
-        Search(RootPtr->right, item);/*Otherwise search in right side of binary tree if searching value is greater then the current node value*/
-    }
-}
+### Windows:
 
-void main(){
-    struct BST* RootPtr = NULL;
-    int item, cont, key;
-    do{
-        printf("Enter item: ");
-        scanf("%d",&item);
-        Insert(&RootPtr, item);
-        printf("\n1 to keep inserting/ 0 to Exit: ");
-        scanf("%d",&cont);
-    }while(cont == 1);
-    printf("\nEnter element to search: ");
-    scanf("%d",&key);
-    if(Search(RootPtr, key)== 0){
-        printf("\nFound\n");
-    }
-    else{
-        printf("\nNot Found\n");
-    }
-}
+- Install MinGW: http://mingw-w64.org/doku.php
+- Install Code::Blocks: http://www.codeblocks.org/downloads
+
+### Mac:
+
+- Install Xcode Command Line Tools: Open Terminal and type `xcode-select --install`
+- Install Homebrew: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+- Install gcc: `brew install gcc`
+
+## Setup
+
+### Windows:
+
+- Open Code::Blocks
+- Go to: File > New > Project... > Click on "Console Application" and hit "Go"
+- Follow the dialogue and hit "Finish"
+
+### Mac:
+
+- Open Terminal
+- `mkdir project_name`
+- `cd project_name`
+- `touch main.c`
+
+
+## How To Use
+
+1. Download the code from this repository or clone it using the command: `git clone <repo_link>`.
+
+2. Move the relevant files (`BST.c`, `DoublyLL.c`, `InsertionDeletionLinkedList.c` etc.) to your project directory.
+
+3. For Windows users: Open the `.c` files in Code::Blocks and hit F9 to build and run.
+
+4. For Mac users: Open Terminal, navigate to project directory and run the command: `gcc <file_name.c> -o <output_file_name>; ./<output_file_name>`.
+
+## Note
+
+Any modifications or changes to the CI/CD pipeline if present should be done according to the steps, comments and documentation provided in the respective files of the CI/CD pipeline code. For running the project locally, refer to the 'How To Use' section of this README.
+
+## Contributing
+
+Pull requests for new features, bug fixes, and improvements are welcomed. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to properly test your code before you make a pull request.
