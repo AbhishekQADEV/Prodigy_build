@@ -1,74 +1,52 @@
-// Implementation of Binary Search Tree
-#include <stdio.h>
-#include <stdlib.h>
+# Binary Search Tree and Doubly Linked-List Implementation in C
 
-struct BST{
-    int data;
-    struct BST* left;
-    struct BST* right;
-};
+This repository contains C programs which implement a Binary Search Tree (BST) and Doubly Linked-List.
 
-struct BST *CreateNode(){
-    struct BST* new =(struct BST*)malloc(sizeof(struct BST));
-    new->left = NULL;
-    new->right = NULL;
-    return new;
-}
+## Software Required
+- GCC Compiler
 
-void Insert(struct BST** RootPtr, int value){
-    struct BST* temp = *RootPtr;
-    if(temp == NULL){
-        /*When list is empty*/
-        struct BST* NewNode = CreateNode();
-        NewNode->data = value;
-        *RootPtr = NewNode;
-    }
-    else if(value <= temp->data){
-        /*If user value is less then current node value insert in left of the node...*/
-        struct BST* NewNode = CreateNode();
-        NewNode->data = value;
-        temp->left = NewNode;
-    }
-    else{
-        /*If user value is greater then current node value insert at right of the node*/
-        struct BST* NewNode = CreateNode();
-        NewNode->data = value;
-        temp->right = NewNode;
-    }
-}
+For both setups:
 
-int Search(struct BST* RootPtr, int item){
-    /*Implemented search using recursion*/
-    if(RootPtr == NULL){
-        return 0;/*Returns 0 if list is empty*/
-    }
-    else if(item == RootPtr->data){
-        return 1;/*Returns 1 when element found*/
-    }
-    else if(item < RootPtr->data){
-        Search(RootPtr->left, item);/*Otherwise search in left side of binary tree if searching value is less then the current node value*/
-    }
-    else{
-        Search(RootPtr->right, item);/*Otherwise search in right side of binary tree if searching value is greater then the current node value*/
-    }
-}
+1. Install C (GCC compiler). Download link: [GCC](https://gcc.gnu.org/install/index.html)
 
-void main(){
-    struct BST* RootPtr = NULL;
-    int item, cont, key;
-    do{
-        printf("Enter item: ");
-        scanf("%d",&item);
-        Insert(&RootPtr, item);
-        printf("\n1 to keep inserting/ 0 to Exit: ");
-        scanf("%d",&cont);
-    }while(cont == 1);
-    printf("\nEnter element to search: ");
-    scanf("%d",&key);
-    if(Search(RootPtr, key)== 0){
-        printf("\nFound\n");
-    }
-    else{
-        printf("\nNot Found\n");
-    }
-}
+   For **Mac**, use the Homebrew package manager:
+   ```
+   brew install gcc
+   ```
+
+   For **Windows**, use Cygwin:
+   - Download [Cygwin](https://cygwin.com/install.html).
+   - During setup, select GCC for installation.
+  
+2. Check your installation with the following command:
+   ```
+   gcc --version
+   ```
+
+## Running
+
+Use the command `gcc [filename] -o [output file name]` to compile the C source files. For example, to compile and run the Binary Search Tree implementation:
+
+1. Compile the file
+   ```
+   gcc BST.c -o bst
+   ```
+2. Run the C program
+   ```
+   ./bst
+   ```
+
+Repeat for all other C programs in the repository.
+
+## Note on CI/CD
+
+These programs can be included in a Continuous Integration / Continuous Deployment (CI/CD) pipeline by adding a script to compile and test them as part of the build process.
+
+No specific versioning requirements for this simple repository besides ensuring consistent installations of GCC to ensure all language features/items are supported.
+
+A common development environment is made with the expected use of GCC and usage of standard C libraries. Please ensure these are installed and updated before use. 
+
+## Contributing
+
+Refer to CONTRIBUTING.md for guidelines to contribute to this project. With this being a very small repository, contribution is not expected to be extensive, likely centered around improving documentation or adding minor features.
+
