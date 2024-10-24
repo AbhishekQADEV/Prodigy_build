@@ -1,66 +1,68 @@
-// Implementing Doubly linked list.
+// Implementation of Binary Search Tree
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Node {
-    int value;
-    struct Node *next;
-    struct Node *prev;
+struct BST {
+    int data;
+    struct BST* left;
+    struct BST* right;
 };
 
-struct Node *head;
-
-struct Node *CreateNode() {
-    struct Node *new = (struct Node*) malloc(sizeof(struct Node));
+struct BST* CreateNode() {
+    struct BST* new = (struct BST*) malloc(sizeof(struct BST));
+    new->left = NULL;
+    new->right = NULL;
     return new;
 }
 
-void Insert(int val) {
-    struct Node *NewNode = CreateNode();
-    NewNode->value = val;
-    NewNode->next = head;
-    NewNode->prev = NULL;
+void Insert(struct BST** RootPtr, int value) {
+    struct BST* temp = *RootPtr;
 
-    if (head != NULL) {
-        head->prev = NewNode;
-    }
-
-    head = NewNode;
-}
-
-void Display() {
-    struct Node *temp = head;
-    printf("\nForward:\n");
-    while (temp != NULL) {
-        printf("%d ", temp->value);
-        temp = temp->next;
+    if (temp == NULL) {
+        struct BST* NewNode = CreateNode();
+        NewNode->data = value;
+        *RootPtr = NewNode;
+    } else if (value <= temp->data) {
+        struct BST* NewNode = CreateNode();
+        NewNode->data = value;
+        temp->left = NewNode;
+    } else {
+        struct BST* NewNode = CreateNode();
+        NewNode->data = value;
+        temp->right = NewNode;
     }
 }
 
-void ReverseDisplay() {
-    struct Node *temp = head;
-    while (temp->next != NULL) {
-        temp = temp->next;
+int Search(struct BST* RootPtr, int item) {
+    if (RootPtr == NULL) {
+        return 0;
+    } else if (item == RootPtr->data) {
+        return 1;
+    } else if (item < RootPtr->data) {
+        Search(RootPtr->left, item);
+    } else {
+        Search(RootPtr->right, item);
     }
-    printf("\nBackward:\n");
-    while (temp != NULL) {
-        printf("%d ", temp->value);
-        temp = temp->prev;
-    }
-    printf("\n");
 }
 
 void main() {
-    int n, val;
-    printf("Enter number of elements: ");
-    scanf("%d", &n);
+    struct BST* RootPtr = NULL;
+    int item, cont, key;
 
-    for (int i = 0; i < n; i++) {
-        printf("Enter element: ");
-        scanf("%d", &val);
-        Insert(val);
+    do {
+        printf("Enter item: ");
+        scanf("%d", &item);
+        Insert(&RootPtr, item);
+        printf("\n1 to keep inserting/ 0 to Exit: ");
+        scanf("%d", &cont);
+    } while (cont == 1);
+
+    printf("\nEnter element to search: ");
+    scanf("%d", &key);
+
+    if (Search(RootPtr, key) == 0) {
+        printf("\nFound\n");
+    } else {
+        printf("\nNot Found\n");
     }
-
-    Display();
-    ReverseDisplay();
 }
