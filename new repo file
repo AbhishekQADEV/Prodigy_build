@@ -1,25 +1,62 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void bubble_sort(int *array, int len) {
-    for (int i = 0; i < len; i++) {
-        for (int j = 0; j < len - i - 1; j++) {
-            if (array[j] > array[j + 1]) {
-                int tmp = array[j];
-                array[j] = array[j + 1];
-                array[j + 1] = tmp;
-            }
-        }
+struct Node {
+    int value;
+    struct Node *next;
+    struct Node *prev;
+};
+
+struct Node *head;
+
+struct Node *CreateNode() {
+    struct Node *new = (struct Node*)malloc(sizeof(struct Node));
+    return new;
+}
+
+void Insert(int val) {
+    struct Node *NewNode = CreateNode();
+    NewNode->value = val;
+    NewNode->next = head;
+    NewNode->prev = NULL;
+    if (head != NULL) {
+        head->prev = NewNode;
+    }
+    head = NewNode;
+}
+
+void Display() {
+    struct Node *temp = head;
+    printf("\nForward:\n");
+    while (temp != NULL) {
+        printf("%d ", temp->value);
+        temp = temp->next;
     }
 }
 
-int main(void) {
-    int yarr[] = {3, 9, 4, 8, 7, 6, 1, 2, 0, 10};
-    bubble_sort(yarr, 10);
-    printf("[");
-    for (int i = 0; i < 10; i++) {
-        printf("%d, ", yarr[i]);
+void ReverseDisplay() {
+    struct Node *temp = head;
+    while (temp->next != NULL) {
+        temp = temp->next;
     }
-    printf("\b\b]\n");
+    printf("\nBackward:\n");
+    while (temp != NULL) {
+        printf("%d ", temp->value);
+        temp = temp->prev;
+    }
+    printf("\n");
+}
+
+int main() {
+    int n, val;
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        printf("Enter element: ");
+        scanf("%d", &val);
+        Insert(val);
+    }
+    Display();
+    ReverseDisplay();
     return 0;
 }

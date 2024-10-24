@@ -1,28 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <ctype.h>
 
-void keylog()
+void count(int num)
 {
-    FILE *fPtr;
-    fPtr = fopen("keylogger.txt", "a");
-
-    char a;
-    scanf(" %c", &a);
-    
-    if (a != '\n')
-        fprintf(fPtr, "%c", a);
-    
-    time_t now = time(NULL);
-    struct tm *tm_struct = localtime(&now);
-    int hour = tm_struct->tm_hour;
-    
-    if (hour == 24)
-        fclose(fPtr);
+    printf("[");
+    if (num > 20) {
+        for (int i = 0; i < num; i++) {
+            printf("\n%d, \n", i);
+        }
+    } else {
+        for (int i = 0; i < num; i++) {
+            printf("%d", i);
+        }
+    }
+    printf("]");
 }
 
 int main()
 {
-    keylog();
+    int num;
+    printf("Count:~$ ");
+    scanf("%d", &num);
+    count(num);
     return 0;
 }

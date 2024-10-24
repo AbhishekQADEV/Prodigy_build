@@ -1,19 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main()
+void bubble_sort(int *array, int len)
 {
-    long a;
-    long b;
-
-    for(a = 0, b = 1; b > a; b++)
+    for(int i = 0; i < len; i++)
     {
-        a++;
-        printf("%ld \n %ld", a, b);
+        for(int j = 0; j < len - i - 1; j++)
+        {
+            if(array[j] > array[j + 1])
+            {
+                int tmp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = tmp;
+            }
+        }
     }
+}
 
-    if(b == sizeof(long))
+int main(void)
+{
+    int yarr[] = {3, 9, 4, 8, 7, 6, 1, 2, 0, 10};
+    bubble_sort(yarr, 10);
+    printf("[");
+    for(int i = 0; i < 10; i++)
     {
-        exit(1);
+        printf("%d, ", yarr[i]);
     }
+    printf("\b\b]\n");
+    return 0;
 }
